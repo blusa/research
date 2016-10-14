@@ -79,7 +79,7 @@ Our interest is to automatically detect clinically relevant daily activities of 
 
 While video cameras are traditionally used for daily activity monitoring, they need additional algorithms to overcome their inherent vulnerability to low light conditions, too much light, shadows, complex scenes. Far infrared sensors (thermal sensors) do not have any these issues because they create a crisp image based temperature data from a scene, so almost all the problems traditional RGB cameras face in processing and classifying images are avoided \cite{chengl}.
 
-In this document, we introduce a new dataset: Thermset, an incremental dataset of thermal information recorded for different time intervals of (so far) 13\myworries{actualizar} senior citizens at their bedrooms with automatic annotations as described in \autoref{subsec:annotations}. Each of the instances of the dataset (videos) corresponds to a series of frames where each frame corresponds to the matrix of absolute temperature values captured by a far-infrarred sensor. The sensor captures for intervals of as little as 2 seconds or as long as 15 seconds. Until the date of writing this document, Thermset has about 767\myworries{actualizar} hours of recordings, where typical examples of data reflect an elder sleeping, wandering, getting ready to bed, receiving assistance from a caregiver. The dataset also contains thermal data of the different bedrooms with no people as shown in \autoref{fig:examples} Thermset is available through \url{http://forelderly.weebly.com/data}.
+In this document, we introduce a new dataset: Thermset, an incremental dataset of thermal information recorded for different time intervals of (so far) 13\myworries{actualizar} senior citizens at their bedrooms with automatic annotations as described in \autoref{subsec:annotations}. Each of the instances of the dataset (chunks) corresponds to a series of frames where each frame corresponds to the matrix of absolute temperature values captured by a far-infrarred sensor. The sensor captures for intervals of as little as 2 seconds or as long as 15 seconds. Until the date of writing this document, Thermset has about 767\myworries{actualizar} hours of recordings, where typical examples of data reflect an elder sleeping, wandering, getting ready to bed, receiving assistance from a caregiver. The dataset also contains thermal data of the different bedrooms with no people as shown in \autoref{fig:examples} Thermset is available through \url{http://forelderly.weebly.com/data}.
 
 \begin{figure*}
   \centering
@@ -100,38 +100,44 @@ In \autoref{sec:technical} we provide technical details of how Thermset is struc
 \section{Technical details}
 \label{sec:technical}
 \subsection{Structure}
-Thermset is structured in groups. A group is a sequence of chunks with the same duration.
-A chunk is represented with a sequence of thermal values matrixes expressed in Celsius degrees
-(from now on we will call each thermal matrix a frame). Each group has chunks of a unique person
+Thermset is structured in groups. A group is a sequence of short clips with the same duration.
+A clip is composed by a sequence of temperature values matrixes expressed in Celsius degrees
+(from now on we will call each thermal matrix a frame). Each group has clips of a unique person
 recorded for a certain time interval with a certain configuration of our recording tools as we will
-describe in this section. Is important to notice that there is a time gap between each chunk of a
-group. Its duration depends on the recording configuration used and is explained in \autoref{par:time-gap}.
+describe in this section. There is a time gap between each clip and its duration depends on the recording
+configuration used as explained at \autoref{par:time-gap}.
 
 Group names follow the structure \textbf{Name\_YYY}, where Name refers to an elder's alias and \textbf{YYY}
 to the \textbf{YYY}-th group recorded of that elder. For instance, the group \textbf{Marge\_001} is the
 1st group with recordings of an elder whose alias is Marge.
 
 \subsection{Diversity of data}
-Below we provide graphics to help understand better the distribution of the data collected. The majority of recordings were collected in nursing homes, but there are two groups recorded at two private addresses.
+Below we provide graphics to help understand better the distribution of the data collected. The majority of
+recordings were collected in nursing homes, but there are two groups recorded at two private addresses.
 
 \myworries{grafico de porcentajes hombre/mujer}
 
 \myworries{grafico de edades}
 
-\myworries{grafico de largos de videos}
-
 \subsection{Recording tools}
-To record and create annotations we use Apple iOS devices and \href{http://www.flir.com/flirone/ios/}{FLIR One sensors}. The app used was \href{http://appstore.com/thermixforflirone}{Thermix}\cite{thermix} , available for free in the App Store.
+To record and create annotations we use Apple iOS devices and \href{http://www.flir.com/flirone/ios/}{FLIR One sensors}.
+The app used was \href{http://appstore.com/thermixforflirone}{Thermix}\cite{thermix} ,
+available for free in the App Store.
 
-We relied on 3 different devices to run Thermix: an iPod Touch 5th generation,
-an iPhone 5 and an iPhone 5s. The far-infrared sensors used were Dongle and SLED versions of the FLIR One.
+We relied on 3 different devices to run Thermix: an iPhone 5, an iPhone 5s and an iPod Touch 5th generation.
+The far-infrared sensors used were Dongle and SLED versions of the FLIR One.
 We configure Thermix in the iPhone 5 with an SLED sensor and in the iPhone 5s and the
-iPod Touch with a dongle sensor\cite{sdk_flir_dongle}\cite{sdk_flir_sled}. Because Thermix excludes all frames during a sensor recalibration, we estimate the
-average fps (frame per second) for each configuration achieving ~5fps, ~3fps and ~2fps respectively.
+iPod Touch with a dongle sensor\cite{sdk_flir_dongle}\cite{sdk_flir_sled}. Because Thermix excludes all frames
+during a sensor recalibration, we estimate the average fps (frame per second) for each configuration
+achieving ~5fps, ~3fps and ~2fps respectively.
 \myworries{CONTROLAR SI SE ENTIENDE}.
 
 \subsubsection{Recording Configurations}
-Groups in Thermset were recorded in different ways. Each of these are what we call \textit{Recording Configuration or RC}. There is a total of 7 Recording Configurations, labeled \textit{RC1} to \textit{RC8}. Information of the configuration and device/sensor used for each group is available at \url{http://forelderly.weebly.com/data}.  Below we describe 3 aspects of each configuration, and at \autoref{tab:1} we describe each Recording Configuration by this 3 aspects.
+Groups in Thermset were recorded using different settings. Each of these are what we call
+\textit{Recording Configuration or RC}. There is a total of 7 Recording Configurations, labeled \textit{RC1}
+to \textit{RC8}. Information of the configuration and device/sensor used for each group is available
+at \url{http://forelderly.weebly.com/data}.  Below we describe 3 aspects of each configuration, and
+at \autoref{tab:1} we describe each Recording Configuration by this 3 aspects.
 
 \paragraph{Precision of thermal data}
 	For \textit{R = raw thermal data returned from the sensor} we construct a frame $F$, where $F(i,j)$ corresponds to the element $i,j$ of the frame adjusted by precision.
@@ -159,10 +165,10 @@ Groups in Thermset were recorded in different ways. Each of these are what we ca
 			Where $R(i,j)$ is the temperature expressed in Celsius degrees with one decimal place. The $round$ function returns the integral value nearest to its argument, rounding half-way cases away from zero.
 	\end{itemize}
 
-\paragraph{Video lenght}
-Each group records videos for a certain number of time that ranges between 2 and 15 seconds. The amount of frames per video is related to the fps the device is capable of and the time each device was recording for:
+\paragraph{Chunk length}
+Each group has chunks of a certain duration that ranges between 2 and 15 seconds. The amount of frames per chunk is related to the fps the device is capable of and the time each device was recording for:
 	\begin{equation}
-	\resizebox{.423 \textwidth}{!}{$number\_of\_frames = fps(device) * video\_lenght(RC)$}
+	\resizebox{.423 \textwidth}{!}{$number\_of\_frames = fps(device) * chunk\_length(RC)$}
 	\end{equation}
 
 
@@ -363,7 +369,7 @@ Thermix provides a plug-and-play interface to easily gather thermal data. So far
 Thermset provides hours of recordings of seniors being aided, sitting, wandering, people that felt to the ground, nurses, etc. Such data is highly valuable for training new algorithms aimed to help the elderly live better and benchmarking existing algorithms in real life situations.
 %------------------------------------------------
 \paragraph{Acknowledgement}
-This work was done during the post-gratuate course 'Machine Learning in Computer Vision', from National University of C\'ordoba, Argentina.\myworries{$\leftarrow$ ponemos esto?} The authors would like to thank the course Professor, Jorge Sanchez for his helpful comments and support.\myworries{$\leftarrow$ y esto?}  We would also like to thank all of the nurses and doctors at the healthcare facilities from where we collected the data for their collaboration. \myworries{$\leftarrow$ y esto?}
+This work was done during the post-graduate course 'Machine Learning in Computer Vision', from National University of C\'ordoba, Argentina.\myworries{$\leftarrow$ ponemos esto?} The authors would like to thank the course Professor, Jorge Sanchez for his helpful comments and support.\myworries{$\leftarrow$ y esto?}  We would also like to thank all of the nurses and doctors at the healthcare facilities from where we collected the data for their collaboration. \myworries{$\leftarrow$ y esto?}
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST

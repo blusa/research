@@ -17,6 +17,8 @@
 
 \usepackage{xcolor}
 \newcommand\myworries[1]{\textcolor{red}{#1}}
+\newcommand\NumberOfGroups{43}
+\newcommand\TotalHoursOfRecording{767}
 
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep}
@@ -98,9 +100,16 @@ In \autoref{sec:technical} we provide technical details of how Thermset is struc
 \section{Technical details}
 \label{sec:technical}
 \subsection{Structure}
-Thermset is structured in groups. A group is a collection of instances of absolute temperature values matrixes in Celsius (from now on we will call each instance a video and each temperature matrix a frame). There are 43\myworries{actualizar} groups. Each group has videos of a unique person recorded for a certain time interval with a certain configuration of our recording tools as we will describe in this section. Is important to notice that there is a time gap between each video in the group. Total recordings add up to 767\myworries{actualizar} hours.
+Thermset is structured in groups. A group is a sequence of chunks with the same duration.
+A chunk is represented with a sequence of thermal values matrixes expressed in Celsius degrees
+(from now on we will call each thermal matrix a frame). Each group has chunks of a unique person
+recorded for a certain time interval with a certain configuration of our recording tools as we will
+describe in this section. Is important to notice that there is a time gap between each chunk of a
+group. Its duration depends on the recording configuration used and is explained in \autoref{par:time-gap}.
 
-Group names follow the structure \textbf{Name\_YYY}, where Name refers to an elder's alias and \textbf{YYY} to the \textbf{YYY}-th group recorded of that elder. For instance, the group \textbf{Marge\_001} is the 1st group with recordings of an elder whose alias is Marge.
+Group names follow the structure \textbf{Name\_YYY}, where Name refers to an elder's alias and \textbf{YYY}
+to the \textbf{YYY}-th group recorded of that elder. For instance, the group \textbf{Marge\_001} is the
+1st group with recordings of an elder whose alias is Marge.
 
 \subsection{Diversity of data}
 Below we provide graphics to help understand better the distribution of the data collected. The majority of recordings were collected in nursing homes, but there are two groups recorded at two private addresses.
@@ -156,7 +165,9 @@ Each group records videos for a certain number of time that ranges between 2 and
 	\resizebox{.423 \textwidth}{!}{$number\_of\_frames = fps(device) * video\_lenght(RC)$}
 	\end{equation}
 
+
 \paragraph{Dead intervals}
+\label{par:time-gap}
 Thermix records and uploads small chunks of video to the cloud. There are two possible configurations: either Thermix saves chunks to the device disk continuously (continuous mode) or waits until a chunk is sent to start recording the next one (one-by-one mode).
 \begin{itemize}
 	\item \textbf{Continuous mode:}\\

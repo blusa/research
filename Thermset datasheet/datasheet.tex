@@ -317,7 +317,7 @@ The dataset used to train this model was labelled manually and contains 30825 fr
 We randomly split 80\%/20\% of data into training and testing datasets. Since our training units are videos, we are careful of not including any frame of a testing video in the training set (and vice versa)
 
 \subsection{Evaluation}
-The dataset was split   into training and testing datasets,  80\%/20\%   respectively. We are careful of not including any frame of a testing video in the training set (and vice versa). Training was done for 500 epochs with a Dropout rate of 0.5. Results were obtained running the algorithm in the testing dataset, showing a  generalization  error of  7.09\%. Our loss function is cross entropy for logits. (See \autoref{fig:cross_entropy_42} and \autoref{fig:confusion_matrix_42}).
+The dataset was split into training and validation datasets,  80\%/20\% respectively. We are careful of not including any frame of a testing video in the validation set (and vice versa). Training was done for 500 epochs with a Dropout rate of 0.5. Results were obtained running the algorithm in the validaation dataset with a generalization error of  7.09\%. Our loss function is cross entropy for logits. (See \autoref{fig:cross_entropy_42}).
 
 \begin{figure}
   \centering
@@ -326,13 +326,15 @@ The dataset was split   into training and testing datasets,  80\%/20\%   respect
   \label{fig:cross_entropy_42}
 \end{figure}
 
-
+\iffalse
 \begin{figure}
   \includegraphics[width=0.5\textwidth]{images/confusion_matrix_42.png}
   \caption{Confusion matrix}
   \label{fig:confusion_matrix_42}
 \end{figure}
+\fi
 
+\iffalse
 \paragraph{Using the model for presence detection}
 On the 20\% of data left out of training, shown above as validation data, our model  achieves the following evaluation metrics, where positive is presence of at least a person in the scene:
 
@@ -346,6 +348,7 @@ On the 20\% of data left out of training, shown above as validation data, our mo
 	\item ​\textbf{miss-rate:} 1.03 \%
 	\item ​\textbf{false-discovery-rate:} 1.22 \%
 \end{itemize}
+\fi
 
 Thermix provides a publicly available account where this model is being used live for presence detection for 3 people living in a nursing home, this helps nursing home staff to monitor activity in those scenes. Access can be requested via \url{http://forelderly.weebly.com/data}.
 

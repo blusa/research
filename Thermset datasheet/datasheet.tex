@@ -17,8 +17,11 @@
 
 \usepackage{xcolor}
 \newcommand\myworries[1]{\textcolor{red}{#1}}
-\newcommand\NumberOfGroups{43}
-\newcommand\TotalHoursOfRecording{767}
+\newcommand\NumberOfGroups{45}
+\newcommand\TotalHoursOfRecording{794}
+\newcommand\TotalNumbersOfDays{151}
+\newcommand\NumberOfPeople{13}
+\newcommand\NumberOfClips{464284}
 
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep}
@@ -37,7 +40,7 @@
 \pagestyle{fancy} % All pages have headers and footers
 \fancyhead{} % Blank out the default header
 \fancyfoot{} % Blank out the default footer
-\fancyfoot[RO,LE]{\thepage} % Custom footer text
+\fancyfoot[RO,L]{\thepage} % Custom footer text
 
 \usepackage{titling} % Customizing the title section
 \usepackage{hyperref} % For hyperlinks in the PDF
@@ -75,11 +78,30 @@
 
 \section{Introduction}
 \label{sec:introduction}
-Our interest is to automatically detect clinically relevant daily activities of seniors living independently or in nursing homes. To do that we will use thermal information and develop innovative computer vision technology. Modern computer vision is based on deep learning techniques and has proven to be very effective at automatizing visual recognition tasks such as detecting objects in images, tracking and detecting activities in videos, etc. A caveat of these techniques is the need of big amounts of labeled data for training their models. In practice, to achieve  models that could reliably work in new  environments (e.g. homes, people, etc.) would require of the training dataset to contain activity examples covering the full space of the manifold defined by all possible configurations of the target activities and environments.
+Our interest is to automatically detect clinically relevant daily activities of seniors living independently
+or in nursing homes. To do that we will use thermal information and develop innovative computer vision technology.
+Modern computer vision is based on deep learning techniques and has proven to be very effective at automatizing
+visual recognition tasks such as detecting objects in images, tracking and detecting activities in videos, etc.
+A caveat of these techniques is the need of big amounts of labeled data for training their models. In practice,
+to achieve  models that could reliably work in new  environments (e.g. homes, people, etc.) would require of the
+training dataset to contain activity examples covering the full space of the manifold defined by all possible
+configurations of the target activities and environments.
 
-While video cameras are traditionally used for daily activity monitoring, they need additional algorithms to overcome their inherent vulnerability to low light conditions, too much light, shadows, complex scenes. Far infrared sensors (thermal sensors) do not have any these issues because they create a crisp image based temperature data from a scene, so almost all the problems traditional RGB cameras face in processing and classifying images are avoided \cite{chengl}.
+While video cameras are traditionally used for daily activity monitoring, they need additional algorithms to
+overcome their inherent vulnerability to low light conditions, too much light, shadows, complex scenes. Far
+infrared sensors (thermal sensors) do not have any these issues because they create a crisp image based temperature
+data from a scene, so almost all the problems traditional RGB cameras face in processing and classifying images are
+avoided \cite{chengl}.
 
-In this document, we introduce a new dataset: Thermset, an incremental dataset of thermal information recorded for different time intervals of (so far) 13\myworries{actualizar} senior citizens at their bedrooms with automatic annotations as described in \autoref{subsec:annotations}. Each of the instances of the dataset (chunks) corresponds to a series of frames where each frame corresponds to the matrix of absolute temperature values captured by a far-infrarred sensor. The sensor captures for intervals of as little as 2 seconds or as long as 15 seconds. Until the date of writing this document, Thermset has about 767\myworries{actualizar} hours of recordings, where typical examples of data reflect an elder sleeping, wandering, getting ready to bed, receiving assistance from a caregiver. The dataset also contains thermal data of the different bedrooms with no people as shown in \autoref{fig:examples} Thermset is available through \url{http://forelderly.weebly.com/data}.
+In this document, we introduce a new dataset: Thermset, an incremental dataset of thermal information recorded
+for different time intervals of (so far) \NumberOfPeople{} senior citizens at their bedrooms with automatic
+annotations as described in \autoref{subsec:annotations}. Each of the instances of the dataset (clips) corresponds
+ to a sequence of frames where each frame corresponds to a matrix of temperature values captured by a
+ far-infrarred sensor. The sensor captures for intervals of as little as 2 seconds or as long as 15 seconds. Until
+ the date of writing this document, Thermset has about \TotalHoursOfRecording{} hours of recordings, where typical
+ examples of data reflect an elder sleeping, wandering, getting ready to bed, receiving assistance from a caregiver.
+ The dataset also contains thermal data of the different bedrooms with no people as shown in \autoref{fig:examples}
+ Thermset is available through \url{http://forelderly.weebly.com/data}.
 
 \begin{figure*}
   \centering
@@ -93,7 +115,11 @@ In this document, we introduce a new dataset: Thermset, an incremental dataset o
 
 %\textbf{Thermal imaging datasets}
 
-In \autoref{sec:technical} we provide technical details of how Thermset is structured, characteristics of data, annotations and how data is being gathered. The rest of the document is structured as follows: In \autoref{sec:properties} we provide qualitative information of the seniors recorded and environments. Later in \autoref{sec:application} we show an application of Thermset for classifying poses and as a presence classifier. Our goal is to provide evidence of how impactful the Thermset dataset can be to improve seniors wellbeing.
+In \autoref{sec:technical} we provide technical details of how Thermset is structured, characteristics of data,
+annotations and how data is being gathered. The rest of the document is structured as follows:
+In \autoref{sec:properties} we provide qualitative information of the seniors recorded and environments and
+finally in \autoref{sec:application} we provide an example of how impactful Thermset can be to improve seniors
+wellbeing.
 
 %------------------------------------------------
 
@@ -111,13 +137,29 @@ Group names follow the structure \textbf{Name\_YYY}, where Name refers to an eld
 to the \textbf{YYY}-th group recorded of that elder. For instance, the group \textbf{Marge\_001} is the
 1st group with recordings of an elder whose alias is Marge.
 
-\subsection{Diversity of data}
-Below we provide graphics to help understand better the distribution of the data collected. The majority of
-recordings were collected in nursing homes, but there are two groups recorded at two private addresses.
+\subsection{Data analytics}
+At the moment of writing this document, Thermset is composed by \NumberOfGroups{} groups of \NumberOfPeople{} different people.
+Two groups (Peter\_001 and Fiona\_001) were collected at each elder's home and the others in 2 different
+nursing homes. Until now:
 
-\myworries{grafico de porcentajes hombre/mujer}
-
-\myworries{grafico de edades}
+\begin{itemize}
+	\item \textbf{Number of clips: \NumberOfClips{}}
+  \item \textbf{Hours of clips: \TotalHoursOfRecording{} hs}
+  \item \textbf{Number of people: \NumberOfPeople{}}
+  \item \textbf{Number of groups: \NumberOfGroups{}}
+  \item \textbf{Hours per gender:}
+  \begin{itemize}
+    \item \textbf{Female: 226 hs}
+    \item \textbf{Male: 568 hs}
+  \end{itemize}
+  \item \textbf{Hours per people age ranges:}
+  \begin{itemize}
+    \item \textbf{55 to 65: 212 hs}
+    \item \textbf{65 to 75: 76 hs}
+    \item \textbf{75 to 85: 372 hs}
+    \item \textbf{85+: 134 hs}
+  \end{itemize}
+\end{itemize}
 
 \subsection{Recording tools}
 To record and create annotations we use Apple iOS devices and \href{http://www.flir.com/flirone/ios/}{FLIR One sensors}.
@@ -127,20 +169,16 @@ available for free in the App Store.
 We relied on 3 different devices to run Thermix: an iPhone 5, an iPhone 5s and an iPod Touch 5th generation.
 The far-infrared sensors used were Dongle and SLED versions of the FLIR One.
 We configure Thermix in the iPhone 5 with an SLED sensor and in the iPhone 5s and the
-iPod Touch with a dongle sensor\cite{sdk_flir_dongle}\cite{sdk_flir_sled}. Because Thermix excludes all frames
-during a sensor recalibration, we estimate the average fps (frame per second) for each configuration
-achieving ~5fps, ~3fps and ~2fps respectively.
-\myworries{CONTROLAR SI SE ENTIENDE}.
+iPod Touch with a dongle sensor\cite{sdk_flir_dongle}\cite{sdk_flir_sled}.
 
 \subsubsection{Recording Configurations}
-Groups in Thermset were recorded using different settings. Each of these are what we call
-\textit{Recording Configuration or RC}. There is a total of 7 Recording Configurations, labeled \textit{RC1}
-to \textit{RC8}. Information of the configuration and device/sensor used for each group is available
-at \url{http://forelderly.weebly.com/data}.  Below we describe 3 aspects of each configuration, and
-at \autoref{tab:1} we describe each Recording Configuration by this 3 aspects.
+Groups in Thermset were recorded using different configurations. Information of the configuration and device/sensor used
+for each group is available at \url{http://forelderly.weebly.com/data}. Below we describe the 3 aspects of each
+configuration.
 
-\paragraph{Precision of thermal data}
-	For \textit{R = raw thermal data returned from the sensor} we construct a frame $F$, where $F(i,j)$ corresponds to the element $i,j$ of the frame adjusted by precision.
+\paragraph{Temperate precision}
+	For \textit{R = raw thermal data returned from the sensor} we construct a frame $F$, where $F(i,j)$ corresponds
+  to the element $i,j$ of the frame adjusted by precision.
 
 	\begin{itemize}
 		\item \textbf{Low precision:}
@@ -148,10 +186,10 @@ at \autoref{tab:1} we describe each Recording Configuration by this 3 aspects.
 			    F(i,j)=
 			\begin{cases}
 			    2 * R(i,j),		& \text{if } 1 \leq R(i,j) \leq 120\\
-			    0,              & \text{O therwise}
+			    0,              & \text{Otherwise}
 			\end{cases}
 			\]
-			Where $R(i,j)$ is the temperature expressed in Celsius degrees with no decimal places. \textit{RC1, RC3} correspond to this precision.\\
+			Where $R(i,j)$ is the temperature expressed in Celsius degrees with no decimal places.\\
 
 
 		\item \textbf{High precision:}
@@ -162,53 +200,44 @@ at \autoref{tab:1} we describe each Recording Configuration by this 3 aspects.
 			    0,              & \text{Otherwise}
 			\end{cases}
 			\]
-			Where $R(i,j)$ is the temperature expressed in Celsius degrees with one decimal place. The $round$ function returns the integral value nearest to its argument, rounding half-way cases away from zero.
+			Where $R(i,j)$ is the temperature expressed in Celsius degrees with one decimal place. The $round$
+      function returns the integral value nearest to its argument, rounding half-way cases away from zero.
 	\end{itemize}
 
-\paragraph{Chunk length}
-Each group has chunks of a certain duration that ranges between 2 and 15 seconds. The amount of frames per chunk is related to the fps the device is capable of and the time each device was recording for:
-	\begin{equation}
-	\resizebox{.423 \textwidth}{!}{$number\_of\_frames = fps(device) * chunk\_length(RC)$}
-	\end{equation}
-
+\paragraph{Clips length}
+Each group has clips of a certain duration that ranges between 2 and 15 seconds. Because Thermix excludes all frames
+during a sensor recalibration, the amount of frames per clip variates. A minimum of 3 frames per clip is .
+We estimate the average fps (frame per second) depending on each device achieving ~5fps, ~3fps and ~2fps for the
+iPhone5+SLED, iPhone5s+Dongle and iPod+Dongle respectively.
 
 \paragraph{Dead intervals}
 \label{par:time-gap}
-Thermix records and uploads small chunks of video to the cloud. There are two possible configurations: either Thermix saves chunks to the device disk continuously (continuous mode) or waits until a chunk is sent to start recording the next one (one-by-one mode).
+Thermix records and uploads small chunks of video to the cloud. There are two possible configurations: either
+Thermix saves chunks to the device disk continuously (continuous mode) or waits until a chunk is sent to start
+recording the next one (one-by-one mode).
 \begin{itemize}
 	\item \textbf{Continuous mode:}\\
-		Video chunks in groups recorded with continuous mode are separated by a small time window (between 2 and 5 seconds in average), that correspond to the time Thermix takes to compose the chunk\footnote{The composition of the chunk consists in generating a video from thermal data and annotating the first thermal frame using the method described in \autoref{sec:application}}. This means, Thermix did not wait for a video chunk to be sent before start recording the next one.\\
+		Clips in groups recorded with continuous mode are separated by a small time window (between 2 and 5 seconds in average),
+    that corresponds to the time Thermix takes to compose the chunk\footnote{The composition of the chunk consists
+    in generating a video from thermal data and annotating the first thermal frame using the method described
+    in \autoref{sec:application}}. This means, Thermix did not wait for a video chunk to be sent before start
+    recording the next one.\\
 	\item \textbf{One-by-one mode:}\\
-		Videos in groups recorded with one-by-one mode are separated by the time Thermix takes to compose the video chunk as in continuos mode plus the time the device takes to upload it to the cloud.
-\end{itemize} \myworries{$\leftarrow$ revisar no me gusta}
-
-\begin{table*}[t]
-  \centering
-\begin{tabular}{c*{4}{c}}
-\hline
-\textbf{RC} & Video lenght & Precision of thermal data & Sampling dead intervals\\
-\hline
-\textbf{1} & 10 seconds & Low precision 		& One-by-one \\
-\textbf{2} & 15 seconds & Low precision 		& Continuous \\
-\textbf{3} & 15 seconds & Low precision 		& Continuous \\
-\textbf{4} & 10 seconds & High precision 	& One-by-one \\
-\textbf{5} & 2 seconds  & High precision 	& One-by-one \\
-\textbf{6} & 2 seconds  & High precision 	& One-by-one \\
-\textbf{7} & 5 seconds  & High precision 	& One-by-one \\
-\textbf{8} & 5 seconds  & High precision 	& One-by-one \\
-\hline
-\end{tabular}
-  \caption{Details of recording configurations comprehended by Themset}
-  \label{tab:1}
-\end{table*}
+		Clips in groups recorded with one-by-one mode are separated by the time Thermix takes to compose the video
+    chunk as in continuos mode plus the time the device takes to upload it to the cloud.
+\end{itemize}
 
 \subsection{Annotations}
 \label{subsec:annotations}
-Thermset provides automatic annotations generated by Thermix for each video. The annotation corresponds to the output of the classification of the first frame of the video using the method described at \autoref{sec:application}. Classes are background, standing, sitting, lying and people. Annotations for each group are listed on file (named \textbf{GROUP\_NAME}\_annotations.txt) stored in each group folder. Annotations follow the structure:
+Thermset provides automatic annotations generated by Thermix for each clip. The annotation corresponds to the
+classification of the first frame of the clip using the method described at \autoref{sec:application}.
+Classes are background, standing, sitting, lying and people. Annotations for each group are listed on file
+(named \textbf{GROUP\_NAME}\_annotations.txt) stored in each group folder. Annotations follow the structure:
 
-	\textit{video\_url \textbraceleft \textless class\_id:score \textgreater}\textbraceright \textsuperscript{5},
+	\textit{clip\_url \textbraceleft \textless class\_id:score \textgreater}\textbraceright \textsuperscript{5},
 
-	where \textit{class\_id} corresponds to classes as detailed in \autoref{tab:2}, and \textit{score} correspond to the output of the classification each \textit{class\_id}.
+	where \textit{class\_id} corresponds to classes as detailed in \autoref{tab:2}, and \textit{score} corresponds to
+  the output of the classification for each \textit{class\_id}.
   An example of an annotation is shown in \autoref{fig:image_w_annotation}.
 \begin{table}
 \center
@@ -234,8 +263,8 @@ Thermset provides automatic annotations generated by Thermix for each video. The
 
 \begin{figure*}
   \centering
-    \includegraphics[width=1.0\textwidth]{images/recording_timeline (1).png}
-  \caption{Timeline distribution of recordings per elder. Dead spaces represent a group change or intervals where the system was not recording for more than 5 minutes.}
+    \includegraphics[width=1.0\textwidth]{images/recording_timeline}
+  \caption{Distribution in time of recordings per elder. Blank spaces represent a group change or intervals where the system was not recording for more than 5 minutes}
   \label{fig:timeline}
 \end{figure*}
 
@@ -244,13 +273,14 @@ Thermset provides automatic annotations generated by Thermix for each video. The
 \section{Qualitative description of the dataset}
 \label{sec:properties}
 \paragraph{Recording environments}
-Videos where recorded at several bedrooms in 2 different nursing home facilities and at 2 private homes. All videos where recorded during winter.
+Videos where recorded at several bedrooms in 2 different nursing home facilities and at 2 private homes. All videos
+where recorded during winter.
 \paragraph{About the people}
 Until the date of writing this document, Thermset has data of the following elders:
 \begin{itemize}
 	\item \textbf{Marge:} 90+ years old, Female \\
 			\underline{Diseases or disabilities:} Hyperthyroidism. Had fractures due to falls \\
-			\underline{Situation:} Living at a healthcare facility. Shares the bedroom with another person. Takes 1 nap a day. Sleeps with a diaper. Had a hip fracture after a fall. Moves around with walker and she’s afraid of walking alone. Requires constant assistance for moving, entering, leaving bed, etc. \\
+			\underline{Situation:} Living at a healthcare facility. Shares the bedroom with another person. Takes naps daily. Sleeps with a diaper. Had a hip fracture after a fall. Moves around with walker and she’s afraid of walking alone. Requires constant assistance for moving, entering, leaving bed, etc. \\
 	\item \textbf{Peter:} 80+ years old, Male \\
 			\underline{Diseases or disabilities:} Had fractures due to falls \\
 			\underline{Situation:} Lives at his place, alone. He does not require assistance, but due to a knee fracture has difficulties to move. Uses a walking stick. Takes naps and reads the newspaper while in bed. \\
@@ -295,13 +325,36 @@ Until the date of writing this document, Thermset has data of the following elde
 \section{Application: Pose estimation}
 \label{sec:application}
 
-In the context of daily activities detection, collecting a training set large enough to accurately detect clinically relevant activities is hard. It might require of hundreds of data feeds for several days, or years if we consider the environmental temperature fluctuations and the different appearances (e.g. clothes) that a person will have during the stations. In addition, it would require of several human annotators working 24/7 watching and extracting the target activities appearing in the streams. Likely, the number of labelers would be proportional to the number of data streams that need to be analyzed. In addition to the complexity of collecting a big labeled  training  dataset, the size of each labeled example could present a problem as well. Optimizing an utility function over long-term visual streams would require a massive amount of computing power and memory.
+In the context of daily activities detection, collecting a training set large enough to accurately detect
+clinically relevant activities is hard. It might require of hundreds of data feeds for several days, or years if
+we consider the environmental temperature fluctuations and the different appearances (e.g. clothes) that a person
+will have during the stations. In addition, it would require of several human annotators working 24/7 watching and
+extracting the target activities appearing in the streams. Likely, the number of labelers would be proportional to
+the number of data streams that need to be analyzed. In addition to the complexity of collecting a big labeled
+training dataset, the size of each labeled example could present a problem as well. Optimizing an utility function
+over long-term visual streams would require a massive amount of computing power and memory.
 
-To overcome the limitations described above, instead of thinking in rigid models to detect all activities at once it is more convenient to design dynamic systems capable of learning incrementally new activities when new labeled data arrives.  Daily living activities are hierarchically composed of sub-activities occurring in a variable period of time. In general, the deeper we move in the taxonomy of activities, the less training-data is needed for building reliable models to detect them. This observation is related to the lower dimensionality of their manifold in comparison with more complex activities. We are interested in detecting complex activities in incremental bottom-up steps. First, by detecting anchoring activities lying at the lower end of the human activities taxonomy. These anchor activities are persistent human features appearing as sub-activities of more complex ones.  Enabling a robust detection of these anchors will enable our second stage of learning, which will use the anchors for detecting and analyzing complex long-term human activity.  For the rest of this section we will focus in the first stage of our algorithm: defining and modeling the detection of anchoring activities.\\
+To overcome the limitations described above, instead of thinking in rigid models to detect all activities at once
+it is more convenient to design dynamic systems capable of learning incrementally new activities when new labeled
+data arrives.  Daily living activities are hierarchically composed of sub-activities occurring in a variable period
+of time. In general, the deeper we move in the taxonomy of activities, the less training-data is needed for building
+reliable models to detect them. This observation is related to the lower dimensionality of their manifold in comparison
+with more complex activities. We are interested in detecting complex activities in incremental bottom-up steps. First,
+by detecting anchoring activities lying at the lower end of the human activities taxonomy. These anchor activities are
+persistent human features appearing as sub-activities of more complex ones.  Enabling a robust detection of these
+anchors will enable our second stage of learning, which will use the anchors for detecting and analyzing complex
+long-term human activity.  For the rest of this section we will focus in the first stage of our algorithm: defining
+and modeling the detection of anchoring activities.\\
 
-\textbf{Pose Anchors} One of our anchor activities is the detection of pose. Human pose  is a highly descriptive and persistent feature, capable  of  characterizing complex activities. For senior adults living independently, changes of pose in the particular contexts could be describing a high risk situation. For  example,  a person changes from "standing" to "lying in the floor" could indicate the  occurrence  of a fall. In nursing-homes, detecting and alerting the "coming out of bed" could enable promptly caregiver's assistance.
+\textbf{Pose Anchors} One of our anchor activities is the detection of pose. Human pose  is a highly descriptive
+and persistent feature, capable  of  characterizing complex activities. For senior adults living independently,
+changes of pose in the particular contexts could be describing a high risk situation. For  example,  a person changes
+from "standing" to "lying in the floor" could indicate the  occurrence  of a fall. In nursing-homes, detecting and
+alerting the "coming out of bed" could enable promptly caregiver's assistance.
 
-The detection of pose anchors is connected to the monitoring of clinically relevant activities. Here we borrow some of the target daily living  activities  described in \cite{pac_stanford}, where several of the activities presented there can be inferred directly from the human pose.
+The detection of pose anchors is connected to the monitoring of clinically relevant activities. Here we borrow some
+of the target daily living  activities  described in \cite{pac_stanford}, where several of the activities presented
+there can be inferred directly from the human pose.
 ​
 For example:
 \begin{enumerate}
@@ -315,15 +368,23 @@ For example:
 
 \subsection{Model}
 
-We built our model as a Fully Convolutional Network derived Matt Zeiler's model \cite{zeiler-2014}, which takes an input of 225x255x3 thermal image is convolved through 5 layers. The last layer is fully connected, taking features from the top convolutional layer as input in vector. The final layer is a 5-way softmax function, 5 being the number of classes: \textit{lying}, \textit{sitting}, \textit{standing}, \textit{group} and \textit{background}. All filters and feature maps are square in shape.
+We built our model as a Fully Convolutional Network derived Matt Zeiler's model \cite{zeiler-2014}, which takes
+an input of 225x255x3 thermal image is convolved through 5 layers. The last layer is fully connected, taking
+features from the top convolutional layer as input in vector. The final layer is a 5-way softmax function, being 5
+the number of classes: \textit{lying}, \textit{sitting}, \textit{standing}, \textit{group} and \textit{background}.
+All filters and feature maps are square in shape.
 
 \subsection{Dataset}
-The dataset used to train this model was labelled manually and contains 30825 frames with 6165 frames by class, where 12726 were selected from Thermset videos and 18099 where collected from a controlled environment. This dataset is available if requested.
+The dataset used to train this model was labelled manually and contains 25326 frames with approximately 5055 frames
+by class, where 8362 were selected from Thermset clips and 16964 where collected from a controlled environment.
 
-We randomly split 80\%/20\% of data into training and testing datasets. Since our training units are videos, we are careful of not including any frame of a testing video in the training set (and vice versa)
+We randomly split 80\%/20\% of data into training and testing datasets. Since our training units are video clips,
+we were careful of not including any frame of a testing video in the training set (and vice versa)
 
 \subsection{Evaluation}
-The dataset was split   into training and testing datasets,  80\%/20\%   respectively. We are careful of not including any frame of a testing video in the training set (and vice versa). Training was done for 500 epochs with a Dropout rate of 0.5. Results were obtained running the algorithm in the testing dataset, showing a  generalization  error of  7.09\%. Our loss function is cross entropy for logits. (See \autoref{fig:cross_entropy_42} and \autoref{fig:confusion_matrix_42}).
+Training was done for 500 epochs with a Dropout rate of 0.5. Results were obtained running the algorithm in the
+testing dataset, showing a generalization error of 7.09\%. Our loss function is cross entropy for logits.
+(See \autoref{fig:cross_entropy_42} and \autoref{fig:confusion_matrix_42}).
 
 \begin{figure}
   \centering
@@ -340,7 +401,8 @@ The dataset was split   into training and testing datasets,  80\%/20\%   respect
 \end{figure}
 
 \paragraph{Using the model for presence detection}
-On the 20\% of data left out of training, shown above as validation data, our model  achieves the following evaluation metrics, where positive is presence of at least a person in the scene:
+On the 20\% of data left out of training, shown above as validation data, our model
+achieves the following evaluation metrics, where positive is presence of at least a person in the scene:
 
 \begin{itemize}
 	\item ​\textbf{accuracy:} 98.20 \%
@@ -353,7 +415,9 @@ On the 20\% of data left out of training, shown above as validation data, our mo
 	\item ​\textbf{false-discovery-rate:} 1.22 \%
 \end{itemize}
 
-Thermix provides a publicly available account where this model is being used live for presence detection for 3 people living in a nursing home, this helps nursing home staff to monitor activity in those scenes. Access can be requested via \url{http://forelderly.weebly.com/data}.
+Thermix provides a publicly available account where this model is being used live for presence
+detection for 3 people living in a nursing home, this helps nursing home staff to monitor activity
+in those scenes. Access can be requested via \url{http://forelderly.weebly.com/data}.
 
 %------------------------------------------------
 
@@ -361,15 +425,22 @@ Thermix provides a publicly available account where this model is being used liv
 
 \subsection{Extending Thermset}
 \paragraph{Annotations}
-Thermset provides automatic annotations created using the procedure explained at \autoref{sec:application}. To train the model, we labelled 30825 frames. Creating different ground truths, such as localization of people would allow a better understanding of the scene.
+Thermset provides automatic annotations created using the procedure explained at \autoref{sec:application}.
+To train the model, we labelled 25326 frames. Creating different ground truths, such as localization of
+people would allow a better understanding of the scene.
 \paragraph{Size}
-Thermix provides a plug-and-play interface to easily gather thermal data. So far we collected 767\myworries{actualizar} hours of recordings of 13\myworries{actualizar} seniors. At the moment of writing this document, Thermix is set up in three different locations and we have plans of augmenting the dataset with more seniors in different locations.
+Thermix provides a plug-and-play interface to easily gather thermal data. So far we collected \TotalHoursOfRecording{}
+hours of recordings of \NumberOfPeople{} seniors. At the moment of writing this document, Thermix is set up in
+three different locations and we have plans of augmenting the dataset with more seniors in different locations.
 
 \paragraph{Exploiting Thermset}
-Thermset provides hours of recordings of seniors being aided, sitting, wandering, people that felt to the ground, nurses, etc. Such data is highly valuable for training new algorithms aimed to help the elderly live better and benchmarking existing algorithms in real life situations.
+Thermset provides hours of recordings of seniors being aided, sitting, wandering, people that felt to the
+ground, nurses, etc. Such data is highly valuable for training new algorithms aimed to help the elderly live
+better and benchmarking existing algorithms in real life situations.
 %------------------------------------------------
 \paragraph{Acknowledgement}
-This work was done during the post-graduate course 'Machine Learning in Computer Vision', from National University of C\'ordoba, Argentina.\myworries{$\leftarrow$ ponemos esto?} The authors would like to thank the course Professor, Jorge Sanchez for his helpful comments and support.\myworries{$\leftarrow$ y esto?}  We would also like to thank all of the nurses and doctors at the healthcare facilities from where we collected the data for their collaboration. \myworries{$\leftarrow$ y esto?}
+The authors would like to like to thank all the nurses and doctors at the healthcare facilities from where we
+collected the data. Thank also Professor Jorge Sanchez from National University of C\'ordoba for his helpful remarks.
 
 %----------------------------------------------------------------------------------------
 %	REFERENCE LIST

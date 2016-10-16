@@ -18,10 +18,29 @@
 \usepackage{xcolor}
 \newcommand\myworries[1]{\textcolor{red}{#1}}
 \newcommand\NumberOfGroups{45}
-\newcommand\TotalHoursOfRecording{794}
+\newcommand\TotalHoursOfRecording{793}
 \newcommand\TotalNumbersOfDays{151}
 \newcommand\NumberOfPeople{13}
-\newcommand\NumberOfClips{463416}
+\newcommand\NumberOfClips{463415}
+\newcommand\FemaleHours{225}
+\newcommand\MaleHours{567}
+\newcommand\LessThanSixtyFive{212}
+\newcommand\LessThanSeventyFive{75}
+\newcommand\LessThanEightyFive{371}
+\newcommand\MoreThanEightyFive{134}
+\newcommand\HenryHours{140}
+\newcommand\RickHours{106}
+\newcommand\VictorHours{95}
+\newcommand\JulienHours{94}
+\newcommand\AnneHours{72}
+\newcommand\CharlesHours{64}
+\newcommand\IreneHours{60}
+\newcommand\FionaHours{42}
+\newcommand\MargeHours{41}
+\newcommand\PeterHours{38}
+\newcommand\LukeHours{31}
+\newcommand\ErikaHours{8}
+\newcommand\AprilHours{3}
 
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep}
@@ -57,7 +76,7 @@
 
 \pretitle{\begin{center}\Huge\bfseries} % Article title formatting
 \posttitle{\end{center}} % Article title closing formatting
-\title{\LARGE Thermset: A thermal-videos dataset of elder people bedrooms} % Article title
+\title{\LARGE Thermset: A thermal-video dataset of elders at their bedrooms} % Article title
 \author{Pablo Pusiol\\ \href{mailto:pdp0109@famaf.unc.edu.ar \qquad Pablo Pusiol }{pdp0109@famaf.unc.edu.ar} \and Federico Polacov \\\href{mailto:fdp0108@famaf.unc.edu.ar}{fdp0108@famaf.unc.edu.ar}}
 \date{Universidad Nacional de C\'ordoba - FaMAF \\ \today}
 %\date{\today} % Leave empty to omit a date
@@ -149,15 +168,15 @@ nursing homes. Until now:
   \item \textbf{Number of groups: \NumberOfGroups{}}
   \item \textbf{Hours per gender:}
   \begin{itemize}
-    \item \textbf{Female: 226 hs}
-    \item \textbf{Male: 568 hs}
+    \item \textbf{Female: \FemaleHours{} hs}
+    \item \textbf{Male: \MaleHours{} hs}
   \end{itemize}
   \item \textbf{Hours per people age ranges:}
   \begin{itemize}
-    \item \textbf{55 to 65: 212 hs}
-    \item \textbf{65 to 75: 76 hs}
-    \item \textbf{75 to 85: 372 hs}
-    \item \textbf{85+: 134 hs}
+    \item \textbf{55 to 65: \LessThanSixtyFive{} hs}
+    \item \textbf{65 to 75: \LessThanSeventyFive{} hs}
+    \item \textbf{75 to 85: \LessThanEightyFive{} hs}
+    \item \textbf{85+: \MoreThanEightyFive{} hs}
   \end{itemize}
 \end{itemize}
 
@@ -206,9 +225,8 @@ configuration.
 
 \paragraph{Clips length}
 Each group has clips of a certain duration that ranges between 2 and 15 seconds. Because Thermix excludes all frames
-during a sensor recalibration, the amount of frames per clip variates. A minimum of 3 frames per clip is .
-We estimate the average fps (frame per second) depending on each device achieving ~5fps, ~3fps and ~2fps for the
-iPhone5+SLED, iPhone5s+Dongle and iPod+Dongle respectively.
+during a sensor recalibration, the number of frames in a clip will be less if a recalibration occurs. We estimate the average fps (frame per second)
+depending on each device achieving ~5fps, ~3fps and ~2fps for the iPhone5+SLED, iPhone5s+Dongle and iPod+Dongle respectively.
 
 \paragraph{Dead intervals}
 \label{par:time-gap}

@@ -17,19 +17,19 @@
 
 \usepackage{xcolor}
 \newcommand\myworries[1]{\textcolor{red}{#1}}
-\newcommand\NumberOfGroups{45}
-\newcommand\TotalHoursOfRecording{793}
-\newcommand\TotalNumbersOfDays{151}
+\newcommand\NumberOfGroups{44}
+\newcommand\TotalHoursOfRecording{734}
+\newcommand\TotalNumbersOfDays{139}
 \newcommand\NumberOfPeople{13}
-\newcommand\NumberOfClips{463415}
+\newcommand\NumberOfClips{421106}
+
 \newcommand\FemaleHours{225}
-\newcommand\MaleHours{567}
-\newcommand\LessThanSixtyFive{212}
-\newcommand\LessThanSeventyFive{75}
-\newcommand\LessThanEightyFive{371}
-\newcommand\MoreThanEightyFive{134}
-\newcommand\HenryHours{140}
-\newcommand\RickHours{106}
+\newcommand\MaleHours{508}
+\newcommand\LessThanSixtyFiveHours{226}
+\newcommand\LessThanSeventyFiveHours{75}
+\newcommand\LessThanEightyFiveHours{298}
+\newcommand\MoreThanEightyFiveHours{134}
+\newcommand\HenryHours{154}
 \newcommand\VictorHours{95}
 \newcommand\JulienHours{94}
 \newcommand\AnneHours{72}
@@ -38,9 +38,30 @@
 \newcommand\FionaHours{42}
 \newcommand\MargeHours{41}
 \newcommand\PeterHours{38}
+\newcommand\RickHours{33}
 \newcommand\LukeHours{31}
 \newcommand\ErikaHours{8}
 \newcommand\AprilHours{3}
+
+\newcommand\FemaleDays{57}
+\newcommand\MaleDays{82}
+\newcommand\LessThanSixtyFiveDays{49}
+\newcommand\LessThanSeventyFiveDays{15}
+\newcommand\LessThanEightyFiveDays{39}
+\newcommand\MoreThanEightyFiveDays{36}
+\newcommand\HenryDays{26}
+\newcommand\AnneDays{23}
+\newcommand\JulienDays{19}
+\newcommand\MargeDays{17}
+\newcommand\VictorDays{14}
+\newcommand\CharlesDays{11}
+\newcommand\IreneDays{11}
+\newcommand\LukeDays{5}
+\newcommand\RickDays{5}
+\newcommand\ErikaDays{3}
+\newcommand\FionaDays{3}
+\newcommand\PeterDays{2}
+\newcommand\AprilDays{1}
 
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep}
@@ -163,20 +184,37 @@ nursing homes. Until now:
 
 \begin{itemize}
 	\item \textbf{Number of clips: \NumberOfClips{}}
-  \item \textbf{Hours of clips: \TotalHoursOfRecording{} hs}
+  \item \textbf{Total days recorded: \TotalNumbersOfDays{}}
+  \item \textbf{Total hours of clips: \TotalHoursOfRecording{} hs}
   \item \textbf{Number of people: \NumberOfPeople{}}
   \item \textbf{Number of groups: \NumberOfGroups{}}
-  \item \textbf{Hours per gender:}
+  \item \textbf{Number of days per gender:}
   \begin{itemize}
-    \item \textbf{Female: \FemaleHours{} hs}
-    \item \textbf{Male: \MaleHours{} hs}
+    \item \textbf{Female: \FemaleDays{}}
+    \item \textbf{Male: \MaleDays{}}
   \end{itemize}
-  \item \textbf{Hours per people age ranges:}
+  \item \textbf{Number of days per age ranges:}
   \begin{itemize}
-    \item \textbf{55 to 65: \LessThanSixtyFive{} hs}
-    \item \textbf{65 to 75: \LessThanSeventyFive{} hs}
-    \item \textbf{75 to 85: \LessThanEightyFive{} hs}
-    \item \textbf{85+: \MoreThanEightyFive{} hs}
+    \item \textbf{55 to 65: \LessThanSixtyFiveDays{}}
+    \item \textbf{65 to 75: \LessThanSeventyFiveDays{}}
+    \item \textbf{75 to 85: \LessThanEightyFiveDays{}}
+    \item \textbf{85+: \MoreThanEightyFiveDays{}}
+  \end{itemize}
+  \item \textbf{Number of days per person:}
+  \begin{itemize}
+    \item \textbf{Henry: \HenryDays{}}
+    \item \textbf{Anne: \AnneDays{}}
+    \item \textbf{Julien: \JulienDays{}}
+    \item \textbf{Marge: \MargeDays{}}
+    \item \textbf{Victor: \VictorDays{}}
+    \item \textbf{Charles: \CharlesDays{}}
+    \item \textbf{Irene: \IreneDays{}}
+    \item \textbf{Luke: \LukeDays{}}
+    \item \textbf{Rick: \RickDays{}}
+    \item \textbf{Erika: \ErikaDays{}}
+    \item \textbf{Fiona: \FionaDays{}}
+    \item \textbf{Peter: \PeterDays{}}
+    \item \textbf{April: \AprilDays{}}
   \end{itemize}
 \end{itemize}
 
@@ -451,7 +489,7 @@ To train the model, we labelled 25326 frames. Creating different ground truths, 
 people would allow a better understanding of the scene.
 \paragraph{Size}
 Thermix provides a plug-and-play interface to easily gather thermal data. So far we collected \TotalHoursOfRecording{}
-hours of recordings of \NumberOfPeople{} seniors. At the moment of writing this document, Thermix is set up in
+hours during \TotalNumbersOfDays{} of \NumberOfPeople{} seniors. At the moment of writing this document, Thermix is set up in
 three different locations and we have plans of augmenting the dataset with more seniors in different locations.
 
 \paragraph{Exploiting Thermset}

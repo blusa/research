@@ -221,7 +221,7 @@ nursing homes. Until now:
 \subsection{Recording tools}
 To record and create annotations we use Apple iOS devices and \href{http://www.flir.com/flirone/ios/}{FLIR One sensors}.
 The app used was \href{http://appstore.com/thermixforflirone}{Thermix}\cite{thermix} ,
-available for free in the App Store.
+available for free in the App Store. Thermix encodes videos in H.264 format and sends them to the cloud.
 
 We relied on 3 different devices to run Thermix: an iPhone 5, an iPhone 5s and an iPod Touch 5th generation.
 The far-infrared sensors used were Dongle and SLED versions of the FLIR One.
@@ -275,7 +275,7 @@ recording the next one (one-by-one mode).
 	\item \textbf{Continuous mode:}\\
 		Clips in groups recorded with continuous mode are separated by a small time window (between 2 and 5 seconds in average),
     that corresponds to the time Thermix takes to compose the chunk\footnote{The composition of the chunk consists
-    in generating a video from thermal data and annotating the first thermal frame using the method described
+    in generating a video from thermal data using the encoding H.264 and annotating the first thermal frame using the method described
     in \autoref{sec:application}}. This means, Thermix did not wait for a video chunk to be sent before start
     recording the next one.\\
 	\item \textbf{One-by-one mode:}\\

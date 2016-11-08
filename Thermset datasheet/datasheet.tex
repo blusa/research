@@ -17,51 +17,8 @@
 
 \usepackage{xcolor}
 \newcommand\myworries[1]{\textcolor{red}{#1}}
-\newcommand\NumberOfGroups{44}
-\newcommand\TotalHoursOfRecording{734}
-\newcommand\TotalNumbersOfDays{139}
-\newcommand\NumberOfPeople{13}
-\newcommand\NumberOfClips{421106}
 
-\newcommand\FemaleHours{225}
-\newcommand\MaleHours{508}
-\newcommand\LessThanSixtyFiveHours{226}
-\newcommand\LessThanSeventyFiveHours{75}
-\newcommand\LessThanEightyFiveHours{298}
-\newcommand\MoreThanEightyFiveHours{134}
-\newcommand\HenryHours{154}
-\newcommand\VictorHours{95}
-\newcommand\JulienHours{94}
-\newcommand\AnneHours{72}
-\newcommand\CharlesHours{64}
-\newcommand\IreneHours{60}
-\newcommand\FionaHours{42}
-\newcommand\MargeHours{41}
-\newcommand\PeterHours{38}
-\newcommand\RickHours{33}
-\newcommand\LukeHours{31}
-\newcommand\ErikaHours{8}
-\newcommand\AprilHours{3}
-
-\newcommand\FemaleDays{57}
-\newcommand\MaleDays{82}
-\newcommand\LessThanSixtyFiveDays{49}
-\newcommand\LessThanSeventyFiveDays{15}
-\newcommand\LessThanEightyFiveDays{39}
-\newcommand\MoreThanEightyFiveDays{36}
-\newcommand\HenryDays{26}
-\newcommand\AnneDays{23}
-\newcommand\JulienDays{19}
-\newcommand\MargeDays{17}
-\newcommand\VictorDays{14}
-\newcommand\CharlesDays{11}
-\newcommand\IreneDays{11}
-\newcommand\LukeDays{5}
-\newcommand\RickDays{5}
-\newcommand\ErikaDays{3}
-\newcommand\FionaDays{3}
-\newcommand\PeterDays{2}
-\newcommand\AprilDays{1}
+\usepackage{dataset_info}
 
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep}
@@ -145,7 +102,7 @@ annotations as described in \autoref{subsec:annotations}. Each of the instances 
 
 \begin{figure*}
   \centering
-    \includegraphics[width=1.0\textwidth]{images/examples}
+    \includegraphics[width=1.0\textwidth]{images/examples_auth}
   \caption{Examples of thermal data extracted from Thermset. (Images where stretched for easy reading)}
   \label{fig:examples}
 \end{figure*}
@@ -179,8 +136,8 @@ to the \textbf{YYY}-th group recorded of that elder. For instance, the group \te
 
 \subsection{Data analytics}
 At the moment of writing this document, Thermset is composed by \NumberOfGroups{} groups of \NumberOfPeople{} different people.
-Two groups (Peter\_001 and Fiona\_001) were collected at each elder's home and the others in 2 different
-nursing homes. Until now:
+Two groups (Peter\_001 and Fiona\_001) were collected at each elder's home and the others in a
+healthcare facility. Until now:
 
 \begin{itemize}
 	\item \textbf{Number of clips: \NumberOfClips{}}
@@ -188,6 +145,7 @@ nursing homes. Until now:
   \item \textbf{Total hours of clips: \TotalHoursOfRecording{} hs}
   \item \textbf{Number of people: \NumberOfPeople{}}
   \item \textbf{Number of groups: \NumberOfGroups{}}
+  \iffalse
   \item \textbf{Number of days per gender:}
   \begin{itemize}
     \item \textbf{Female: \FemaleDays{}}
@@ -200,8 +158,13 @@ nursing homes. Until now:
     \item \textbf{75 to 85: \LessThanEightyFiveDays{}}
     \item \textbf{85+: \MoreThanEightyFiveDays{}}
   \end{itemize}
+  \fi
   \item \textbf{Number of days per person:}
   \begin{itemize}
+    \item \textbf{Marge: \MargeDays{}}
+    \item \textbf{Fiona: \FionaDays{}}
+    \item \textbf{Peter: \PeterDays{}}
+    \iffalse
     \item \textbf{Henry: \HenryDays{}}
     \item \textbf{Anne: \AnneDays{}}
     \item \textbf{Julien: \JulienDays{}}
@@ -215,6 +178,13 @@ nursing homes. Until now:
     \item \textbf{Fiona: \FionaDays{}}
     \item \textbf{Peter: \PeterDays{}}
     \item \textbf{April: \AprilDays{}}
+    \fi
+  \end{itemize}
+  \item \textbf{Hours of clips per person:}
+  \begin{itemize}
+    \item \textbf{Marge: \MargeHours{}}
+    \item \textbf{Fiona: \FionaHours{}}
+    \item \textbf{Peter: \PeterHours{}}
   \end{itemize}
 \end{itemize}
 
@@ -224,16 +194,20 @@ The app used was \href{http://appstore.com/thermixforflirone}{Thermix}\cite{ther
 available for free in the App Store. Thermix encodes videos in H.264 format and sends them to the cloud.
 
 We relied on 3 different devices to run Thermix: an iPhone 5, an iPhone 5s and an iPod Touch 5th generation.
-The far-infrared sensors used were Dongle and SLED versions of the FLIR One.
+The far-infrared sensors used were Dongle and SLED versions of the FLIR One \cite{sdk_flir_dongle}\cite{sdk_flir_sled}.
 We configure Thermix in the iPhone 5 with an SLED sensor and in the iPhone 5s and the
-iPod Touch with a dongle sensor\cite{sdk_flir_dongle}\cite{sdk_flir_sled}.
+iPod Touch with a dongle sensor.
 
 \subsubsection{Recording Configurations}
 Groups in Thermset were recorded using different configurations. Information of the configuration and device/sensor used
-for each group is available at \url{http://forelderly.weebly.com/data}. Below we describe the 3 aspects of each
+for each group is available at \url{http://forelderly.weebly.com/data}. Below we describe the 4 aspects of each
 configuration.
 
-\paragraph{Temperate precision}
+\paragraph{Thermal resolution}
+FLIR One SDK for iOS devices delivers a resolution of 240x320 for Dongle sensors and 120x160 for
+SLED sensors \cite{flir_sdk}.
+
+\paragraph{Temperature precision}
 	For \textit{R = raw thermal data returned from the sensor} we construct a frame $F$, where $F(i,j)$ corresponds
   to the element $i,j$ of the frame adjusted by precision.
 
@@ -317,13 +291,14 @@ Classes are background, standing, sitting, lying and people. Annotations for eac
   \label{fig:image_w_annotation}
 \end{figure}
 
+\iffalse
 \begin{figure*}
   \centering
     \includegraphics[width=1.0\textwidth]{images/recording_timeline}
   \caption{Distribution in time of recordings per elder. Blank spaces represent a group change or intervals where the system was not recording for more than 5 minutes}
   \label{fig:timeline}
 \end{figure*}
-
+\fi
 %------------------------------------------------
 
 \section{Qualitative description of the dataset}
@@ -337,9 +312,13 @@ Until the date of writing this document, Thermset has data of the following elde
 	\item \textbf{Marge:} 90+ years old, Female \\
 			\underline{Diseases or disabilities:} Hyperthyroidism. Had fractures due to falls \\
 			\underline{Situation:} Living at a healthcare facility. Shares the bedroom with another person. Takes naps daily. Sleeps with a diaper. Had a hip fracture after a fall. Moves around with walker and she’s afraid of walking alone. Requires constant assistance for moving, entering, leaving bed, etc. \\
+  \item \textbf{Fiona:} 75+ years old, Female \\
+			\underline{Diseases or  disabilities:} Overweight, Hyperthyroidism \\
+			\underline{Situation:} Lives at her place, alone. She does not require assistance. Takes naps and watches TV while in bed. \\
 	\item \textbf{Peter:} 80+ years old, Male \\
 			\underline{Diseases or disabilities:} Had fractures due to falls \\
 			\underline{Situation:} Lives at his place, alone. He does not require assistance, but due to a knee fracture has difficulties to move. Uses a walking stick. Takes naps and reads the newspaper while in bed. \\
+  \iffalse
 	\item \textbf{Anne:} 60+ years old, Female \\
 			\underline{Diseases or disabilities:} Alzheimer’s \\
 			\underline{Situation:} Living at a healthcare facility. Shares the bedroom with another person. Wanders during the day. \\
@@ -350,9 +329,6 @@ Until the date of writing this document, Thermset has data of the following elde
 	\item \textbf{Victor:} 80+ years old, Male \\
 			\underline{Diseases or disabilities:} Visual impairment \\
 			\underline{Situation:} Living at a healthcare facility. Shares the bedroom with Henry. Takes frequent naps during daytime. Due to his visual impairment requires frequent assistance but he uses a snub to urinate next to his bed without assistance. Urinates frequently. \\
-	\item \textbf{Fiona:} 75+ years old, Female \\
-			\underline{Diseases or  disabilities:} Overweight, Hyperthyroidism \\
-			\underline{Situation:} Lives at her place, alone. She does not require assistance. Takes naps and watches TV while in bed. \\
 	\item \textbf{Irene:} 75+ years old, Female \\
 			\underline{Diseases or  disabilities:} Advanced Alzheimer's disease \\
 			\underline{Situation:} Living at a healthcare facility. Shares the bedroom with  Anne. Due to her incapacity of moving by herself, requires a wheelchair. Sleeps in  a special bed to prevent falls. \\
@@ -374,6 +350,7 @@ Until the date of writing this document, Thermset has data of the following elde
 	\item \textbf{April:} 70+ years old, Female \\
 			\underline{Diseases or disabilities:} Senile dementia \\
 			\underline{Situation:} Living at a healthcare facility. Shares the bedroom with 2 other women. Due muscular spasms product of her advanced dementia requires full-time assistance. \\
+  \fi
 \end{itemize}
 
 %------------------------------------------------
@@ -490,7 +467,7 @@ people would allow a better understanding of the scene.
 \paragraph{Size}
 Thermix provides a plug-and-play interface to easily gather thermal data. So far we collected \TotalHoursOfRecording{}
 hours during \TotalNumbersOfDays{} of \NumberOfPeople{} seniors. At the moment of writing this document, Thermix is set up in
-three different locations and we have plans of augmenting the dataset with more seniors in different locations.
+three different locations and we have plans of augmenting the dataset with more seniors.
 
 \paragraph{Exploiting Thermset}
 Thermset provides hours of recordings of seniors being aided, sitting, wandering, people that felt to the
@@ -498,7 +475,7 @@ ground, nurses, etc. Such data is highly valuable for training new algorithms ai
 better and benchmarking existing algorithms in real life situations.
 %------------------------------------------------
 \paragraph{Acknowledgement}
-The authors would like to like to thank all the nurses and doctors at the healthcare facilities from where we
+The authors would like to like to thank all the nurses and doctors at the healthcare facility from where we
 collected the data. Thank also Professor Jorge Sanchez from National University of C\'ordoba for his helpful remarks.
 
 %----------------------------------------------------------------------------------------
@@ -511,6 +488,7 @@ collected the data. Thank also Professor Jorge Sanchez from National University 
 \bibitem{sdk_flir}FLIR One SDK, {\url{http://developer.flir.com/sdk-documentation/}}, accessed August 2016.
 \bibitem{sdk_flir_sled}FLIR One SLED Tech Specs, {\url{http://www.flir.com/flirone/press/FLIRONE_Fast_Facts_Tech_Specs.pdf}}, accessed August 2016.
 \bibitem{sdk_flir_dongle}FLIR One Dongle Tech Specs, {\url{http://www.flirmedia.com/flir-instruments/industrial/datasheets/flir-one-datasheet.html}}, accessed August 2016.
+\bibitem{flir_sdk}FLIR One SDK Documentation, {\url{https://developer.flir.com/wp-content/uploads/2015/06/documentation-FLIR-One-SDK-iOS-DOCSET.zip}}, accessed August 2016.
 \bibitem{thermix}Thermix for FLIR One, {\url{https://appstore.com/thermixforflirone/}}, accessed August 2016.
 \bibitem{pac_stanford} Stanford PAC Seniorcare website, {\url{http://vision.stanford.edu/pac/seniorcare/}}, accessed August 2016.
 \bibitem{zeiler-2014} Matthew D. Zeiler and Rob Fergus {\em Visualizing and Understanding Convolutional Networks}, ECCV 2014
